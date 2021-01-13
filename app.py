@@ -18,12 +18,9 @@ import tensorflow as tf
 # gpus = tf.config.experimental.list_physical_devices('GPU')
 # tf.config.experimental.set_memory_growth(gpus[0], True)
 
-# model_1 = create_model_b7()
-# model_2 = create_model_b4()
+
 model_3 = create_model_b5()
 
-# model_1.load_weights('model/weights/EffNetB7_512_8.h5')
-# model_2.load_weights('model/weights/EffNetB4_380_8.h5')
 model_3.load_weights('model/weights/EffNetB5_456_8.h5')
 
 ## Just a hack to make changes in css 
@@ -119,19 +116,9 @@ def reload():
 def predict(img_filename):
     mid = []
     image = Image.open('static/uploads/'+img_filename)
-    # image_1 = image.resize((600, 600))
-    # image_2 = image.resize((380, 380))
     image_3 = image.resize((456, 456))
-    # image_1 = np.expand_dims(image_1, axis = 0)
-    # image_2 = np.expand_dims(image_2, axis = 0)
     image_3 = np.expand_dims(image_3, axis = 0)
-    # pred_1 = model_1.predict(image_1)
-    # pred_2 = model_2.predict(image_2)
     pred_3 = model_3.predict(image_3)
-    # mid.append(pred_1)
-    # mid.append(pred_2)
-    # mid.append(pred_3)
-    # result = np.array(mid).reshape(3, 5).mean(axis = 0)
     return label_map[int(np.argmax(pred_3))]
 
 if __name__ == "__main__":
